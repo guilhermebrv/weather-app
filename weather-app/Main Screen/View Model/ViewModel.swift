@@ -20,6 +20,14 @@ class ViewModel {
     public func delegate(delegate: ViewModelProtocol) {
         self.delegate = delegate
     }
+    
+    public func getWeather() -> WeatherModel {
+        let id = weatherData?.weather[0].id ?? Int()
+        let cityName = weatherData?.name ?? ""
+        let temperature = weatherData?.main.temp ?? Double()
+        let weather = WeatherModel(conditionid: id, cityName: cityName, temperature: temperature)
+        return weather
+    }
 
     public func fetchDataFromService(cityname: String) {
         weatherService.fetchWeather(cityName: cityname) { data, error in

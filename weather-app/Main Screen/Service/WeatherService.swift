@@ -15,37 +15,7 @@ enum ErrorDetail: Swift.Error {
 struct WeatherService {
     
     let weatherURL = "https://api.openweathermap.org/data/2.5/weather?appid=7e6c2af0008f8de4eb95da6ba76da7ed&units=metric"
-    /*
-    public func fetchData(cityName: String) {
-        let urlString: String = "\(weatherURL)&q=\(cityName)"
-        performRequest(urlString: urlString)
-    }
     
-    private func performRequest(urlString: String) {
-        if let url: URL = URL(string: urlString) {
-            let session = URLSession(configuration: .default)
-            let task = session.dataTask(with: url) { data, response, error in
-                if error != nil {
-                    return
-                }
-                if let safeData = data {
-                    self.parseJSON(weatherData: safeData)
-                    let datastring = String(data: safeData, encoding: .utf8)
-                }
-            }
-            task.resume()
-        }
-    }
-    
-    private func parseJSON(weatherData: Data) {
-        let decoder = JSONDecoder()
-        do {
-            let decodedData = try decoder.decode(WeatherData.self, from: weatherData)
-        } catch {
-            print(error)
-        }
-    }
-    */
     public func fetchWeather(cityName: String, completion: @escaping(WeatherData?, Error?) -> Void) {
         let urlString: String = "\(weatherURL)&q=\(cityName)"
         guard let url: URL = URL(string: urlString) else { return completion(nil, ErrorDetail.errorURL(urlString: urlString)) }

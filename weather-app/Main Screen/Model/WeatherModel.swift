@@ -7,10 +7,14 @@
 
 import Foundation
 
-struct WeatherManager {
+struct WeatherModel {
     let conditionid: Int
     let cityName: String
     let temperature: Double
+    
+    var temperatureFormatted: String {
+        return String(format: "%.1f", temperature)
+    }
     
     var conditionName: String {
         switch conditionid {
