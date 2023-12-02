@@ -5,10 +5,6 @@
 //  Created by Guilherme Viana on 02/12/2023.
 //
 
-enum weatherConditions {
-    case thunderstorm
-}
-
 import Foundation
 
 struct WeatherData: Codable {

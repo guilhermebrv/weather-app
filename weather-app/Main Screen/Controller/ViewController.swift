@@ -55,10 +55,13 @@ extension ViewController: ViewProtocol, ViewModelProtocol, UITextFieldDelegate {
     func updateCity() {
         DispatchQueue.main.async { [self] in
             let id = viewModel.weatherData?.weather[0].id ?? 800
+            let cityName = viewModel.weatherData?.name
+            let temperature = viewModel.weatherData?.main.temp
+            let weatherManager = WeatherManager(conditionid: id, cityName: cityName ?? "", temperature: temperature ?? 0)
             
-            self.screen?.conditionImageView.image = UIImage(systemName: viewModel.checkWeatherCondition(id: id))
-            self.screen?.cityLabel.text = self.viewModel.weatherData?.name
-            self.screen?.temperatureLabel.text = String(format: "%.1f", self.viewModel.weatherData?.main.temp ?? Double())
+            self.screen?.conditionImageView.image = UIImage(systemName: weatherManager.conditionName)
+            self.screen?.cityLabel.text = cityName
+            self.screen?.temperatureLabel.text = String(format: "%.1f", temperature ?? Double())
         }
     }
     
