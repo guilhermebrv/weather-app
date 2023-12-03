@@ -9,7 +9,7 @@ import UIKit
 
 protocol ViewModelProtocol: AnyObject {
     func successFetchingData()
-    func errorFetchingData()
+    func errorFetchingData(error: String)
 }
 
 class ViewModel {
@@ -35,7 +35,7 @@ class ViewModel {
                 self.weatherData = data
                 self.delegate?.successFetchingData()
             } else {
-                self.delegate?.errorFetchingData()
+                self.delegate?.errorFetchingData(error: error?.localizedDescription ?? "")
             }
         }
     }

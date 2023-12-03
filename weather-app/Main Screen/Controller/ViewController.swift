@@ -61,8 +61,8 @@ extension ViewController: ViewProtocol, ViewModelProtocol, UITextFieldDelegate {
         }
     }
     
-    func errorFetchingData() {
-        print("error fetching data")
+    func errorFetchingData(error: String) {
+        print(error)
     }
     
 }

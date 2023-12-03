@@ -31,10 +31,10 @@ struct WeatherService {
                     let weatherData = try JSONDecoder().decode(WeatherData.self, from: dataResult)
                     completion(weatherData, nil)
                 } catch {
-                    completion(nil, error)
+                    completion(nil, ErrorDetail.detailError(detail: "Error parsing JSON"))
                 }
             } else {
-                completion(nil, error)
+                completion(nil, ErrorDetail.detailError(detail: "Status code from response is not 200!"))
             }
         }
         task.resume()
