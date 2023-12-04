@@ -35,7 +35,7 @@ class View: UIView {
     }()
     
     lazy var locationButton: UIButton = {
-        let button = UIButton()
+        let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(tappedLocationButton), for: .touchUpInside)
         let imageView = UIImageView(image: UIImage(systemName: "location.north.circle.fill")?.withRenderingMode(.alwaysTemplate))
@@ -95,6 +95,7 @@ class View: UIView {
         let imageview = UIImageView()
         imageview.translatesAutoresizingMaskIntoConstraints = false
         imageview.image = UIImage(systemName: "sun.max")?.withRenderingMode(.alwaysTemplate)
+        imageview.isHidden = true
         imageview.tintColor = .label
         imageview.contentMode = .scaleAspectFill
         return imageview
@@ -103,9 +104,9 @@ class View: UIView {
     lazy var temperatureLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "21"
+        label.isHidden = true
         label.textColor = .label
-        label.font = .systemFont(ofSize: 50, weight: .bold)
+        label.font = .systemFont(ofSize: 70, weight: .bold)
         return label
     }()
     
@@ -113,17 +114,18 @@ class View: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "ºC"
+        label.isHidden = true
         label.textColor = .label
-        label.font = .systemFont(ofSize: 50, weight: .regular)
+        label.font = .systemFont(ofSize: 70, weight: .regular)
         return label
     }()
     
     lazy var cityLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "London"
+        label.isHidden = true
         label.textColor = .label
-        label.font = .systemFont(ofSize: 20, weight: .regular)
+        label.font = .systemFont(ofSize: 30, weight: .regular)
         return label
     }()
 

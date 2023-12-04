@@ -22,6 +22,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         signProtocols()
+        self.tappedLocationButton()
     }
     
     private func signProtocols() {
@@ -56,7 +57,7 @@ extension ViewController: ViewModelProtocol {
     
     func tappedLocationButton() {
         locationManager.requestWhenInUseAuthorization()
-        locationManager.requestLocation()
+        locationManager.startUpdatingLocation()
     }
 }
 
@@ -64,9 +65,11 @@ extension ViewController: ViewModelProtocol {
 extension ViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.last {
+            locationManager.stopUpdatingLocation()
             let lat = location.coordinate.latitude
             let lon = location.coordinate.longitude
             viewModel.fetchDataFromServiceByCoordinates(lat: lat, lon: lon)
+            print(lat, lon)
         }
     }
     
@@ -83,6 +86,10 @@ extension ViewController: ViewProtocol {
     
     func successFetchingData() {
         DispatchQueue.main.async { [self] in
+            screen?.conditionImageView.isHidden = false
+            screen?.temperatureLabel.isHidden = false
+            screen?.celsiusLabel.isHidden = false
+            screen?.cityLabel.isHidden = false
             let weather = viewModel.getWeather()
             self.screen?.conditionImageView.image = UIImage(systemName: weather.conditionName)
             self.screen?.cityLabel.text = weather.cityName
