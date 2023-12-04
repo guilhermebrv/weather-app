@@ -35,18 +35,14 @@ class View: UIView {
     }()
     
     lazy var locationButton: UIButton = {
-        let button = UIButton(type: .system)
+        let button = UIButton()
+        let configuration = UIImage.SymbolConfiguration(pointSize: 20)
+        let image = UIImage(systemName: "location.north.circle.fill", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.configuration = .plain()
+        button.configuration?.image = image
+        button.configuration?.baseForegroundColor = .label
         button.addTarget(self, action: #selector(tappedLocationButton), for: .touchUpInside)
-        let imageView = UIImageView(image: UIImage(systemName: "location.north.circle.fill")?.withRenderingMode(.alwaysTemplate))
-        button.addSubview(imageView)
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.tintColor = .label
-        imageView.contentMode = .scaleAspectFit
-        imageView.topAnchor.constraint(equalTo: button.topAnchor).isActive = true
-        imageView.leadingAnchor.constraint(equalTo: button.leadingAnchor).isActive = true
-        imageView.trailingAnchor.constraint(equalTo: button.trailingAnchor).isActive = true
-        imageView.bottomAnchor.constraint(equalTo: button.bottomAnchor).isActive = true
         return button
     }()
     
@@ -72,18 +68,14 @@ class View: UIView {
     }()
     
     lazy var searchButton: UIButton = {
-        let button = UIButton(type: .system)
+        let button = UIButton()
+        let configuration = UIImage.SymbolConfiguration(pointSize: 20)
+        let image = UIImage(systemName: "magnifyingglass", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.configuration = .plain()
+        button.configuration?.image = image
+        button.configuration?.baseForegroundColor = .label
         button.addTarget(self, action: #selector(tappedSearchButton), for: .touchUpInside)
-        let imageView = UIImageView(image: UIImage(systemName: "magnifyingglass")?.withRenderingMode(.alwaysTemplate))
-        button.addSubview(imageView)
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.tintColor = .label
-        imageView.contentMode = .scaleAspectFit
-        imageView.topAnchor.constraint(equalTo: button.topAnchor).isActive = true
-        imageView.leadingAnchor.constraint(equalTo: button.leadingAnchor).isActive = true
-        imageView.trailingAnchor.constraint(equalTo: button.trailingAnchor).isActive = true
-        imageView.bottomAnchor.constraint(equalTo: button.bottomAnchor).isActive = true
         return button
     }()
     
