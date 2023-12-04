@@ -9,6 +9,7 @@ import UIKit
 
 protocol ViewProtocol: AnyObject {
     func tappedSearchButton()
+    func tappedLocationButton()
 }
 
 class View: UIView {
@@ -36,6 +37,7 @@ class View: UIView {
     lazy var locationButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(tappedLocationButton), for: .touchUpInside)
         let imageView = UIImageView(image: UIImage(systemName: "location.north.circle.fill")?.withRenderingMode(.alwaysTemplate))
         button.addSubview(imageView)
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -47,6 +49,10 @@ class View: UIView {
         imageView.bottomAnchor.constraint(equalTo: button.bottomAnchor).isActive = true
         return button
     }()
+    
+    @objc func tappedLocationButton() {
+        delegate?.tappedLocationButton()
+    }
     
     lazy var searchTextField: UITextField = {
         let textfield = UITextField()

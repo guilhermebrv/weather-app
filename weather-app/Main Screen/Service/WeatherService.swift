@@ -16,8 +16,17 @@ struct WeatherService {
     
     let weatherURL = "https://api.openweathermap.org/data/2.5/weather?appid=7e6c2af0008f8de4eb95da6ba76da7ed&units=metric"
     
-    public func fetchWeather(cityName: String, completion: @escaping(WeatherData?, Error?) -> Void) {
+    public func fetchWeatherByCityName(cityName: String, completion: @escaping(WeatherData?, Error?) -> Void) {
         let urlString: String = "\(weatherURL)&q=\(cityName)"
+        guard let url: URL = URL(string: urlString) else { return completion(nil, ErrorDetail.errorURL(urlString: urlString)) }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        performTask(with: request, completion: completion)
+    }
+    
+    public func fetchWeatherByCoordinates(lat: Double, lon: Double, completion: @escaping(WeatherData?, Error?) -> Void) {
+        let urlString: String = "\(weatherURL)&lat=\(lat)&lon=\(lon)"
         guard let url: URL = URL(string: urlString) else { return completion(nil, ErrorDetail.errorURL(urlString: urlString)) }
         
         var request = URLRequest(url: url)
@@ -41,9 +50,5 @@ struct WeatherService {
             }
         }
         task.resume()
-    }
-    
-    private func parseJSON() {
-        
     }
 }

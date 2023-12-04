@@ -29,8 +29,19 @@ class ViewModel {
         return weather
     }
 
-    public func fetchDataFromService(cityname: String) {
-        weatherService.fetchWeather(cityName: cityname) { data, error in
+    public func fetchDataFromServiceByCityName(cityname: String) {
+        weatherService.fetchWeatherByCityName(cityName: cityname) { data, error in
+            if error == nil {
+                self.weatherData = data
+                self.delegate?.successFetchingData()
+            } else {
+                self.delegate?.errorFetchingData(error: error?.localizedDescription ?? "")
+            }
+        }
+    }
+    
+    public func fetchDataFromServiceByCoordinates(lat: Double, lon: Double) {
+        weatherService.fetchWeatherByCoordinates(lat: lat, lon: lon) { data, error in
             if error == nil {
                 self.weatherData = data
                 self.delegate?.successFetchingData()

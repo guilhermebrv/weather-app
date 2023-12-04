@@ -6,11 +6,13 @@
 //
 
 import UIKit
+import CoreLocation
 
 class ViewController: UIViewController {
     
     private var screen: View?
     private var viewModel: ViewModel = ViewModel()
+    private var locationManager: CLLocationManager = CLLocationManager()
     
     override func loadView() {
         screen = View()
@@ -25,12 +27,13 @@ class ViewController: UIViewController {
     private func signProtocols() {
         screen?.delegate(delegate: self)
         screen?.searchTextField.delegate = self
+        locationManager.delegate = self
         viewModel.delegate(delegate: self)
     }
 }
 
-extension ViewController: ViewProtocol, ViewModelProtocol, UITextFieldDelegate {
-    
+// MARK: UITextFieldDelegate
+extension ViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
@@ -40,19 +43,45 @@ extension ViewController: ViewProtocol, ViewModelProtocol, UITextFieldDelegate {
         self.tappedSearchButton()
         textField.text = ""
     }
+}
 
+// MARK: ViewModelProtocol
+extension ViewController: ViewModelProtocol {
     func tappedSearchButton() {
         if let city = screen?.searchTextField.text {
-            viewModel.fetchDataFromService(cityname: city)
+            viewModel.fetchDataFromServiceByCityName(cityname: city)
         }
         screen?.searchTextField.text = ""
     }
     
-    func successFetchingData() {
-        updateCity()
+    func tappedLocationButton() {
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.requestLocation()
+    }
+}
+
+// MARK: CLLocationManagerDelegate
+extension ViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.last {
+            let lat = location.coordinate.latitude
+            let lon = location.coordinate.longitude
+            viewModel.fetchDataFromServiceByCoordinates(lat: lat, lon: lon)
+        }
     }
     
-    func updateCity() {
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error)
+    }
+}
+
+// MARK: ViewProtocol
+extension ViewController: ViewProtocol {
+    func errorFetchingData(error: String) {
+        print(error)
+    }
+    
+    func successFetchingData() {
         DispatchQueue.main.async { [self] in
             let weather = viewModel.getWeather()
             self.screen?.conditionImageView.image = UIImage(systemName: weather.conditionName)
@@ -60,10 +89,5 @@ extension ViewController: ViewProtocol, ViewModelProtocol, UITextFieldDelegate {
             self.screen?.temperatureLabel.text = weather.temperatureFormatted
         }
     }
-    
-    func errorFetchingData(error: String) {
-        print(error)
-    }
-    
 }
 
