@@ -22,7 +22,10 @@ struct WeatherService {
         
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
-        
+        performTask(with: request, completion: completion)
+    }
+    
+    private func performTask(with request: URLRequest, completion: @escaping(WeatherData?, Error?) -> Void) {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let dataResult = data else { return completion(nil, ErrorDetail.detailError(detail: "Couldn't fetch data from specified URL")) }
             guard let response = response as? HTTPURLResponse else { return }
@@ -38,5 +41,9 @@ struct WeatherService {
             }
         }
         task.resume()
+    }
+    
+    private func parseJSON() {
+        
     }
 }
