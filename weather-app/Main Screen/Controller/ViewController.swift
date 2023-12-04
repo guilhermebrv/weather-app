@@ -53,6 +53,7 @@ extension ViewController: ViewModelProtocol {
             viewModel.fetchDataFromServiceByCityName(cityname: city)
         }
         screen?.searchTextField.text = ""
+        screen?.searchTextField.resignFirstResponder()
     }
     
     func tappedLocationButton() {
@@ -69,7 +70,6 @@ extension ViewController: CLLocationManagerDelegate {
             let lat = location.coordinate.latitude
             let lon = location.coordinate.longitude
             viewModel.fetchDataFromServiceByCoordinates(lat: lat, lon: lon)
-            print(lat, lon)
         }
     }
     
