@@ -14,9 +14,11 @@ enum ErrorDetail: Swift.Error {
 
 struct WeatherService {
     
-    let weatherURL = "https://api.openweathermap.org/data/2.5/weather?appid=7e6c2af0008f8de4eb95da6ba76da7ed&units=metric"
+    var weatherURL: String
     
-    public func fetchWeatherByCityName(cityName: String, completion: @escaping(WeatherData?, Error?) -> Void) {
+    public mutating func fetchWeatherByCityName(cityName: String, completion: @escaping(WeatherData?, Error?) -> Void) {
+        let APIkey = ""
+        weatherURL = "https://api.openweathermap.org/data/2.5/weather?appid=\(APIkey)&units=metric"
         let urlString: String = "\(weatherURL)&q=\(cityName)"
         guard let url: URL = URL(string: urlString) else { return completion(nil, ErrorDetail.errorURL(urlString: urlString)) }
         
