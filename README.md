@@ -4,7 +4,11 @@ This project is a culmination of the skills acquired during the [iOS & Swift - T
 
 
 <img src="https://github.com/guilhermebrv/weather-app/assets/104163003/641671fd-8d92-4081-9d1d-1b8c43a529b6" width="180" height="400" />
+<img src="https://github.com/guilhermebrv/weather-app/assets/104163003/8e8ad9d4-c0d6-416a-a76e-44101fc64e64" width="180" height="400" />
 <img src="https://github.com/guilhermebrv/weather-app/assets/104163003/7fc6362c-fc8d-494b-9258-e557e40e47aa" width="180" height="400" />
+<img src="https://github.com/guilhermebrv/weather-app/assets/104163003/241fad92-aaee-4dae-9d96-d4c9a8a5c1df" width="180" height="400" />
+
+
 
 ## Key Features
 
